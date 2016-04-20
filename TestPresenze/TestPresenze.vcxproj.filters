@@ -15,28 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="stdafx.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="datetime.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="pianificazione.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="dipendente.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="repository.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="dipendenterepository.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
@@ -44,16 +26,10 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="datetime.cpp">
+    <ClCompile Include="unittest1.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="pianificazione.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="dipendente.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="dipendenterepository.cpp">
+    <ClCompile Include="unittest2.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>
