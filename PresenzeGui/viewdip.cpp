@@ -5,36 +5,37 @@
 ViewDip::ViewDip(wxWindow * parent, int id)
 	: wxPanel(parent, id)
 {
+	auto tsz = wxSize(150, 30);
 	btnSave = new wxButton{ this,-1,_T("Salva") };
 	btnSave->Bind(wxEVT_BUTTON, &ViewDip::OnSalva, this);
 	btnCancel = new wxButton{ this,-1,_T("Annulla") };
 	btnCancel->Bind(wxEVT_BUTTON, &ViewDip::OnAnnulla, this);
 	strNome = new wxString();
 	strCognome = new wxString();
-	txtNome = new wxTextCtrl{ this, -1, wxEmptyString, wxDefaultPosition, wxSize(100, 20), 0L, wxTextValidator(wxFILTER_EMPTY, strNome) };
-	txtCognome = new wxTextCtrl{ this, -1, wxEmptyString, wxDefaultPosition, wxSize(100, 20), 0L, wxTextValidator(wxFILTER_EMPTY, strCognome) };
-	txtDataNascita = new wxTextCtrl{ this, -1, wxEmptyString, wxDefaultPosition, wxSize(100,20) };
+	txtNome = new wxTextCtrl{ this, -1, wxEmptyString, wxDefaultPosition, tsz, 0L, wxTextValidator(wxFILTER_EMPTY, strNome) };
+	txtCognome = new wxTextCtrl{ this, -1, wxEmptyString, wxDefaultPosition, tsz, 0L, wxTextValidator(wxFILTER_EMPTY, strCognome) };
+	txtDataNascita = new wxTextCtrl{ this, -1, wxEmptyString, wxDefaultPosition, tsz };
 
 	auto topSizer = new wxBoxSizer{ wxVERTICAL };
 	
 	auto row1 = new wxBoxSizer{ wxHORIZONTAL };
 	topSizer->Add(new wxStaticText{ this,-1,_T("NUOVO DIPENDENTE") }, 0, wxALL, 5);
-	row1->Add(new wxStaticText{ this, -1, _T("Nome"), wxDefaultPosition, wxSize(100, 20) });
+	row1->Add(new wxStaticText{ this, -1, _T("Nome"), wxDefaultPosition, tsz });
 	row1->Add(txtNome);
 	topSizer->Add(row1, 0, wxALL, 5);
 	auto row2 = new wxBoxSizer{ wxHORIZONTAL };
-	row2->Add(new wxStaticText{ this,-1,_T("Cognome"), wxDefaultPosition, wxSize(100, 20) });
+	row2->Add(new wxStaticText{ this,-1,_T("Cognome"), wxDefaultPosition, tsz });
 	row2->Add(txtCognome);
 	topSizer->Add(row2, 0, wxALL, 5);
 	auto row3 = new wxBoxSizer{ wxHORIZONTAL };
-	row3->Add(new wxStaticText{ this,-1,_T("Nato/a"), wxDefaultPosition, wxSize(100, 20) });
+	row3->Add(new wxStaticText{ this,-1,_T("Nato/a"), wxDefaultPosition, tsz });
 	row3->Add(txtDataNascita);
 	topSizer->Add(row3, 0, wxALL, 5);
 	auto rowBtn = new wxBoxSizer{ wxHORIZONTAL };
 	rowBtn->Add(btnSave);
 	rowBtn->Add(btnCancel);
 
-	topSizer->Add(rowBtn, 0, wxALL, 5);
+	topSizer->Add(rowBtn, 0, 0, 5);
 	
 	SetSizer(topSizer);
 }

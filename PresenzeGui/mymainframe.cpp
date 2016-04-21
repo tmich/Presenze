@@ -1,9 +1,13 @@
 #include "stdafx.h"
 #include "mymainframe.h"
 
-MyMainFrame::MyMainFrame(const wxString & title, const wxPoint & pos, const wxSize & size)
-	: wxFrame(nullptr, -1, title, pos, size)
+MyMainFrame::MyMainFrame(const wxString & title, const wxPoint & pos)
+	: wxFrame(nullptr, -1, title, pos)
 {
+	// dimensioni
+	SetMinClientSize(wxSize(500, 500));
+	Maximize();
+
 	// creazione menu
 	wxMenuBar *menuBar = new wxMenuBar;
 	menuBar->Append(creaMenuFile(), "&File");
@@ -12,15 +16,13 @@ MyMainFrame::MyMainFrame(const wxString & title, const wxPoint & pos, const wxSi
 	menuBar->Append(creaMenuHelp(), "&?");
 	SetMenuBar(menuBar);
 	
+	//sizer
+	topSizer = new wxBoxSizer{ wxVERTICAL };
+
 	// viste
-	viewDip = new ViewDip{ this, wxID_ANY };
-	//viewDip->Hide();
-	//wxPanel * panel = new wxPanel{ this, -1 };
-	// sizer
-	//topSizer = new wxBoxSizer{ wxVERTICAL };
-	//topSizer->Add(viewDip);
-	////topSizer->SetSizeHints(this);
-	//SetSizer(topSizer);
+	/*viewDip = new ViewDip{ this, wxID_ANY };
+	topSizer->Add(viewDip, 1, wxEXPAND);
+	viewDip->Show(false);*/
 	
 	// status bar
 	CreateStatusBar();
@@ -58,7 +60,7 @@ wxMenu * MyMainFrame::creaMenuGestionePersonale()
 wxMenu * MyMainFrame::creaMenuTurni()
 {
 	wxMenu * menu = new wxMenu;
-	wxMenuItem * mnuItTabTurniSett = new wxMenuItem{ nullptr, wxID_ANY, _T("Tabella settimanale"), "Visualizza la tabella settimanale dei turni" };
+	wxMenuItem * mnuItTabTurniSett = new wxMenuItem{ nullptr, wxID_FILE1, _T("Tabella settimanale"), "Visualizza la tabella settimanale dei turni" };
 	mnuItTabTurniSett->SetBitmap(wxArtProvider::GetBitmap(wxART_LIST_VIEW, wxART_MENU, wxSize(16, 15)));
 	menu->Append(mnuItTabTurniSett);
 
@@ -87,11 +89,34 @@ void MyMainFrame::OnAbout(wxCommandEvent & event)
 
 void MyMainFrame::OnNuovoDip(wxCommandEvent & event)
 {
-	viewDip->Show();
+	//viewDip = new ViewDip{ nullptr, wxID_ANY };
+	if (topSizer->GetChildren().size() > 0)
+	{
+		topSizer->Remove(0);
+	}
+	viewDip = new ViewDip{ this, wxID_ANY };
+	topSizer->Add(viewDip, 1, wxEXPAND);
+	viewDip->SetClientSize(GetClientSize());
+	Refresh();
+	//Update();
+}
+
+void MyMainFrame::OnTurni(wxCommandEvent & event)
+{
+	auto pnl = new wxPanel{ this,-1 };
+	pnl->SetBackgroundColour(wxColour(*wxGREEN));
+	if (topSizer->GetChildren().size() > 0)
+	{
+		topSizer->Remove(0);
+	}
+	topSizer->Add(pnl, 1, wxEXPAND);
+	pnl->SetClientSize(GetClientSize());
+	Refresh();
 }
 
 BEGIN_EVENT_TABLE(MyMainFrame, wxFrame)
 	EVT_MENU(wxID_EXIT, MyMainFrame::OnQuit)
 	EVT_MENU(wxID_ABOUT, MyMainFrame::OnAbout)
 	EVT_MENU(wxID_NEW, MyMainFrame::OnNuovoDip)
+	EVT_MENU(wxID_FILE1, MyMainFrame::OnTurni)
 END_EVENT_TABLE()

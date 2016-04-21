@@ -154,9 +154,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="app.h" />
     <ClInclude Include="mymainframe.h" />
     <ClInclude Include="viewdip.h" />
@@ -166,13 +163,16 @@
     <ClCompile Include="mymainframe.cpp" />
     <ClCompile Include="viewdip.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\wxWidgetsTemplate.2.5.3\build\wxWidgetsTemplate.targets" Condition="Exists('..\packages\wxWidgetsTemplate.2.5.3\build\wxWidgetsTemplate.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>Questo progetto fa riferimento a uno o più pacchetti NuGet che non sono presenti in questo computer. Usare lo strumento di ripristino dei pacchetti NuGet per scaricarli. Per altre informazioni, vedere http://go.microsoft.com/fwlink/?LinkID=322105. Il file mancante è {0}.</ErrorText>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\wxWidgetsTemplate.2.5.3\build\wxWidgetsTemplate.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\wxWidgetsTemplate.2.5.3\build\wxWidgetsTemplate.props'))" />
     <Error Condition="!Exists('..\packages\wxWidgetsTemplate.2.5.3\build\wxWidgetsTemplate.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\wxWidgetsTemplate.2.5.3\build\wxWidgetsTemplate.targets'))" />

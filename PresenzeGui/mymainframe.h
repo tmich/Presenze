@@ -6,7 +6,7 @@
 class MyMainFrame : public wxFrame
 {
 public:
-	MyMainFrame(const wxString& title, const wxPoint& pos, const wxSize& size);
+	MyMainFrame(const wxString& title, const wxPoint& pos);
 	~MyMainFrame();
 
 	DECLARE_EVENT_TABLE()
@@ -22,4 +22,5 @@ private:
 	void OnQuit(wxCommandEvent& event);
 	void OnAbout(wxCommandEvent& event);
 	void OnNuovoDip(wxCommandEvent& event);
+	void OnTurni(wxCommandEvent& event);
 };

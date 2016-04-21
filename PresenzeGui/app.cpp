@@ -13,7 +13,7 @@ MyApp::~MyApp()
 
 bool MyApp::OnInit()
 {
-	auto frame = new MyMainFrame(_T("Gestione Personale"), wxPoint(50, 50), wxSize(450, 340));
+	auto frame = new MyMainFrame(_T("Gestione Personale"), wxPoint(50, 50));
 	frame->Show();
 	SetTopWindow(frame);
 
