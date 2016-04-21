@@ -24,6 +24,9 @@
     <ClInclude Include="viewdip.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="panelTurni.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="app.cpp">
@@ -33,6 +36,9 @@
       <Filter>File di origine</Filter>
     </ClCompile>
     <ClCompile Include="viewdip.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="panelTurni.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>

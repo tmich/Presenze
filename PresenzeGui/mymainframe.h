@@ -2,6 +2,7 @@
 #include <wx\wx.h>
 #include <wx/artprov.h>
 #include "viewdip.h"
+#include "panelTurni.h"
 
 class MyMainFrame : public wxFrame
 {
@@ -17,7 +18,11 @@ private:
 	wxMenu * creaMenuHelp();
 	
 	wxBoxSizer * topSizer;
+	wxPanel * currentPanel;
 	ViewDip * viewDip;
+	PanelTurni * pnlTurni;
+
+	void showPanel(wxPanel * panel);
 
 	void OnQuit(wxCommandEvent& event);
 	void OnAbout(wxCommandEvent& event);

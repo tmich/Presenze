@@ -20,14 +20,23 @@ MyMainFrame::MyMainFrame(const wxString & title, const wxPoint & pos)
 	topSizer = new wxBoxSizer{ wxVERTICAL };
 
 	// viste
-	/*viewDip = new ViewDip{ this, wxID_ANY };
+	viewDip = new ViewDip{ this, wxID_ANY };
+	pnlTurni = new PanelTurni{ this, wxID_ANY };
+	viewDip->Show(false);
+	pnlTurni->Show(false);
 	topSizer->Add(viewDip, 1, wxEXPAND);
-	viewDip->Show(false);*/
+	topSizer->Add(pnlTurni, 1, wxEXPAND);
 	
 	// status bar
 	CreateStatusBar();
 	SetStatusText("Gestione Personale v0.1");
 }
+
+enum 
+{
+	ID_NUOVODIP,
+	ID_LSTTURNI
+};
 
 MyMainFrame::~MyMainFrame()
 {
@@ -50,7 +59,7 @@ wxMenu * MyMainFrame::creaMenuGestionePersonale()
 	mnuItVDip->SetBitmap(wxBitmap(wxArtProvider::GetBitmap(wxART_REPORT_VIEW, wxART_MENU, wxSize(16, 15))));
 	menu->Append(mnuItVDip);
 
-	wxMenuItem * mnuItNDip = new wxMenuItem(nullptr, wxID_NEW, "&Nuovo dipendente", "Aggiungi un nuovo dipendente");
+	wxMenuItem * mnuItNDip = new wxMenuItem(nullptr, ID_NUOVODIP, "&Nuovo dipendente", "Aggiungi un nuovo dipendente");
 	mnuItNDip->SetBitmap(wxBitmap(wxArtProvider::GetBitmap(wxART_NEW, wxART_MENU, wxSize(16, 15))));
 	menu->Append(mnuItNDip);
 
@@ -60,7 +69,7 @@ wxMenu * MyMainFrame::creaMenuGestionePersonale()
 wxMenu * MyMainFrame::creaMenuTurni()
 {
 	wxMenu * menu = new wxMenu;
-	wxMenuItem * mnuItTabTurniSett = new wxMenuItem{ nullptr, wxID_FILE1, _T("Tabella settimanale"), "Visualizza la tabella settimanale dei turni" };
+	wxMenuItem * mnuItTabTurniSett = new wxMenuItem{ nullptr, ID_LSTTURNI, _T("Tabella settimanale"), "Visualizza la tabella settimanale dei turni" };
 	mnuItTabTurniSett->SetBitmap(wxArtProvider::GetBitmap(wxART_LIST_VIEW, wxART_MENU, wxSize(16, 15)));
 	menu->Append(mnuItTabTurniSett);
 
@@ -76,6 +85,19 @@ wxMenu * MyMainFrame::creaMenuHelp()
 	return menu;
 }
 
+void MyMainFrame::showPanel(wxPanel * panel)
+{
+	Freeze();
+	panel->SetClientSize(GetClientSize());
+	if (currentPanel != nullptr)
+	{
+		currentPanel->Hide();
+	}
+	panel->Show();
+	Thaw();
+	currentPanel = panel;
+}
+
 void MyMainFrame::OnQuit(wxCommandEvent & event)
 {
 	Close(true);
@@ -89,34 +111,17 @@ void MyMainFrame::OnAbout(wxCommandEvent & event)
 
 void MyMainFrame::OnNuovoDip(wxCommandEvent & event)
 {
-	//viewDip = new ViewDip{ nullptr, wxID_ANY };
-	if (topSizer->GetChildren().size() > 0)
-	{
-		topSizer->Remove(0);
-	}
-	viewDip = new ViewDip{ this, wxID_ANY };
-	topSizer->Add(viewDip, 1, wxEXPAND);
-	viewDip->SetClientSize(GetClientSize());
-	Refresh();
-	//Update();
+	showPanel(viewDip);
 }
 
 void MyMainFrame::OnTurni(wxCommandEvent & event)
 {
-	auto pnl = new wxPanel{ this,-1 };
-	pnl->SetBackgroundColour(wxColour(*wxGREEN));
-	if (topSizer->GetChildren().size() > 0)
-	{
-		topSizer->Remove(0);
-	}
-	topSizer->Add(pnl, 1, wxEXPAND);
-	pnl->SetClientSize(GetClientSize());
-	Refresh();
+	showPanel(pnlTurni);
 }
 
 BEGIN_EVENT_TABLE(MyMainFrame, wxFrame)
 	EVT_MENU(wxID_EXIT, MyMainFrame::OnQuit)
 	EVT_MENU(wxID_ABOUT, MyMainFrame::OnAbout)
-	EVT_MENU(wxID_NEW, MyMainFrame::OnNuovoDip)
-	EVT_MENU(wxID_FILE1, MyMainFrame::OnTurni)
+	EVT_MENU(ID_NUOVODIP, MyMainFrame::OnNuovoDip)
+	EVT_MENU(ID_LSTTURNI, MyMainFrame::OnTurni)
 END_EVENT_TABLE()

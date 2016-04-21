@@ -25,6 +25,8 @@ public:
 	string get_cognome() { return cognome_; }
 	datetime get_datanascita() { return dnascita_; }
 	string get_indirizzo() { return indirizzo_; }
+	
+	string get_nomecompleto() { return get_nome() + " " + get_cognome(); }
 
 	void licenzia(datetime data_licenziamento);
 private:
