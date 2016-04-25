@@ -24,6 +24,8 @@ namespace date
 
 		string to_string() const;
 		string to_date_string() const;
+		string to_time_string() const;
+		string to_time_long_string() const;
 
 		bool is_valid() const;
 	private:

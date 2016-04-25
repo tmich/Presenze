@@ -155,12 +155,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="app.h" />
+    <ClInclude Include="DialogTurno.h" />
     <ClInclude Include="mymainframe.h" />
     <ClInclude Include="panelTurni.h" />
     <ClInclude Include="viewdip.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="app.cpp" />
+    <ClCompile Include="DialogTurno.cpp" />
     <ClCompile Include="mymainframe.cpp" />
     <ClCompile Include="panelTurni.cpp" />
     <ClCompile Include="viewdip.cpp" />

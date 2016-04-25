@@ -36,7 +36,13 @@
     <ClInclude Include="repository.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="dipendenterepository.h">
+    <ClInclude Include="repositorydipendente.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="serviceturni.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="repositorypresenze.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,7 +59,13 @@
     <ClCompile Include="dipendente.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="dipendenterepository.cpp">
+    <ClCompile Include="repositorydipendente.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="serviceturni.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="repositorypresenze.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>

@@ -132,17 +132,21 @@
   <ItemGroup>
     <ClInclude Include="datetime.h" />
     <ClInclude Include="dipendente.h" />
-    <ClInclude Include="dipendenterepository.h" />
+    <ClInclude Include="repositorydipendente.h" />
     <ClInclude Include="pianificazione.h" />
     <ClInclude Include="repository.h" />
+    <ClInclude Include="repositorypresenze.h" />
+    <ClInclude Include="serviceturni.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="datetime.cpp" />
     <ClCompile Include="dipendente.cpp" />
-    <ClCompile Include="dipendenterepository.cpp" />
+    <ClCompile Include="repositorydipendente.cpp" />
     <ClCompile Include="pianificazione.cpp" />
+    <ClCompile Include="repositorypresenze.cpp" />
+    <ClCompile Include="serviceturni.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

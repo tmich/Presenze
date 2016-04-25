@@ -24,10 +24,8 @@ date::datetime::~datetime()
 
 string date::datetime::to_string() const
 {
-	string seph = ":";
 	stringstream ss;
-
-	ss << to_date_string() << " " << setw(2) << setfill('0') << get_hour() << seph << setw(2) << setfill('0') << get_mins() << seph << setw(2) << setfill('0') << get_secs();
+	ss << to_date_string() << " " << to_time_long_string();
 	
 	return ss.str();
 }
@@ -37,6 +35,26 @@ string date::datetime::to_date_string() const
 	string sep = "/";
 	stringstream ss;
 	ss << setw(2) << setfill('0') << get_day() << sep << setw(2) << setfill('0') << get_month() << sep << get_year();
+
+	return ss.str();
+}
+
+string date::datetime::to_time_string() const
+{
+	string seph = ":";
+	stringstream ss;
+
+	ss << setw(2) << setfill('0') << get_hour() << seph << setw(2) << setfill('0') << get_mins();
+
+	return ss.str();
+}
+
+string date::datetime::to_time_long_string() const
+{
+	string seph = ":";
+	stringstream ss;
+
+	ss << to_time_string() << seph << setw(2) << setfill('0') << get_secs();
 
 	return ss.str();
 }

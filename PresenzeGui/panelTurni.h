@@ -5,6 +5,7 @@
 #include <wx/calctrl.h>
 #include <vector>
 #include "dipendente.h"
+#include "serviceturni.h"
 
 using namespace std;
 
@@ -13,6 +14,10 @@ class PanelTurni : public wxPanel
 public:
 	PanelTurni(wxWindow * parent, int id = -1, wxSize size = wxDefaultSize);
 	~PanelTurni();
+
+	void OnCellSelected(wxGridEvent& evt);
+	void VisualizzaPianificazione(int row, int col, const Presenza& pn);
+	void VisualizzaPianificazione(int row, int col, const Assenza& pn);
 private:
 	size_t COLS = 7;
 	void aggiornaGriglia(const wxDateTime& dt);

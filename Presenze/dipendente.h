@@ -21,12 +21,12 @@ public:
 	void set_datanascita(datetime data_nascita);
 	void set_indirizzo(string indirizzo);
 
-	string get_nome() { return nome_; }
-	string get_cognome() { return cognome_; }
-	datetime get_datanascita() { return dnascita_; }
+	string get_nome() const { return nome_; }
+	string get_cognome() const { return cognome_; }
+	datetime get_datanascita() const { return dnascita_; }
 	string get_indirizzo() { return indirizzo_; }
 	
-	string get_nomecompleto() { return get_nome() + " " + get_cognome(); }
+	string get_nomecompleto() const { return get_nome() + " " + get_cognome(); }
 
 	void licenzia(datetime data_licenziamento);
 private:

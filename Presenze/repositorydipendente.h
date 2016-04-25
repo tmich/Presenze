@@ -4,16 +4,17 @@
 #include <vector>
 
 using namespace std;
-class DipendenteRepository : public Repository<Dipendente>
+class RepositoryDipendente : public Repository<Dipendente>
 {
 public:
-	DipendenteRepository();
-	~DipendenteRepository();
+	RepositoryDipendente();
+	~RepositoryDipendente();
 
 	virtual Dipendente get(int);
-	virtual void add(Dipendente& d);
+	virtual Dipendente add(string nome, string cognome);
 	virtual void remove(Dipendente d);
 	virtual vector<Dipendente> all();
+	virtual void store(Dipendente&);
 private:
 	vector<Dipendente> db;
 };

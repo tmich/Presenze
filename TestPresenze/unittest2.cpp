@@ -2,7 +2,7 @@
 #include "CppUnitTest.h"
 #include "datetime.h"
 #include "dipendente.h"
-#include "dipendenterepository.h"
+#include "repositorydipendente.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace date;
@@ -13,11 +13,10 @@ namespace TestDipendenteRepository
 	{
 		TEST_METHOD(AggiungiDipendente)
 		{
-			Dipendente dip("Gianni", "Barbagianni");
-			DipendenteRepository repo;
-			repo.add(dip);
+			RepositoryDipendente repo;
+			Dipendente dip = repo.add("Gianni", "Barbagianni");
 
-			Assert::IsTrue(dip.get_id() == 18);
+			Assert::IsTrue(dip.get_nome() == "Gianni");
 		}
 		
 

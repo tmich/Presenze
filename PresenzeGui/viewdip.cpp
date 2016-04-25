@@ -1,6 +1,6 @@
 #include "viewdip.h"
 #include <string>
-#include "dipendenterepository.h"
+#include "repositorydipendente.h"
 
 ViewDip::ViewDip(wxWindow * parent, int id)
 	: wxPanel(parent, id)
@@ -70,10 +70,10 @@ void ViewDip::OnSalva(wxCommandEvent & evt)
 
 	if (Validate() && TransferDataFromWindow())
 	{
-		Dipendente dip{ strNome->ToStdString(), strCognome->ToStdString() };
+		RepositoryDipendente repo;
+		Dipendente dip = repo.add(strNome->ToStdString(), strCognome->ToStdString());
 		dip.set_datanascita(date::datetime{ 1,4,1980 });
-		DipendenteRepository repo;
-		repo.add(dip);
+		repo.store(dip);
 
 		if (dip.get_id() > 0)
 		{
