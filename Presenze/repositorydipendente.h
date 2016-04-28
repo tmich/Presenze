@@ -1,6 +1,7 @@
 #pragma once
 #include "repository.h"
 #include "dipendente.h"
+#include <mysql.h>
 #include <vector>
 
 using namespace std;
@@ -17,4 +18,5 @@ public:
 	virtual void store(Dipendente&);
 private:
 	vector<Dipendente> db;
+	MYSQL *mysql;
 };

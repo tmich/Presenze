@@ -45,6 +45,9 @@
     <ClInclude Include="repositorypresenze.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="my_conn.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

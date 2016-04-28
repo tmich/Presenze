@@ -3,6 +3,7 @@
 #include <wx/artprov.h>
 #include <wx/grid.h>
 #include <wx/calctrl.h>
+#include <wx/datectrl.h>
 #include <vector>
 #include "dipendente.h"
 #include "serviceturni.h"
@@ -22,6 +23,7 @@ private:
 	size_t COLS = 7;
 	void aggiornaGriglia(const wxDateTime& dt);
 	wxCalendarCtrl * calendar;
+	wxDatePickerCtrl * datepicker;
 	wxGrid * grid;
 	wxSizer * sizer;
 	vector<Dipendente> vdipendenti;

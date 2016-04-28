@@ -6,21 +6,37 @@ PanelTurni::PanelTurni(wxWindow * parent, int id, wxSize size)
 	:wxPanel{parent, id, wxDefaultPosition, size}
 {
 	RepositoryDipendente repo;
-	vdipendenti = repo.all();
+	try
+	{
+		vdipendenti = repo.all();
+	}
+	catch (const std::string& err)
+	{
+		wxMessageBox(err, _("Errore"));
+		return;
+	}
 
 	sizer = new wxBoxSizer{ wxVERTICAL };
-	calendar = new wxCalendarCtrl{ this, -1 };
+	//calendar = new wxCalendarCtrl{ this, -1 };
+	datepicker = new wxDatePickerCtrl{ this, -1 };
 	grid = new wxGrid{ this,-1 };
 	grid->CreateGrid(vdipendenti.size(), COLS);
 	grid->Bind(wxEVT_GRID_CELL_LEFT_DCLICK, &PanelTurni::OnCellSelected, this);
 
-	calendar->SetExtraStyle(wxCAL_SEQUENTIAL_MONTH_SELECTION);
+	datepicker->SetExtraStyle(wxCAL_SEQUENTIAL_MONTH_SELECTION);
+	datepicker->Bind(wxEVT_DATE_CHANGED, [=](wxDateEvent& event) {
+		aggiornaGriglia(event.GetDate());
+	});
+	aggiornaGriglia(datepicker->GetValue());
+
+	/*calendar->SetExtraStyle(wxCAL_SEQUENTIAL_MONTH_SELECTION);
 	calendar->Bind(wxEVT_CALENDAR_SEL_CHANGED, [=](wxCalendarEvent& event) {
 		aggiornaGriglia(event.GetDate());
 	});
-	aggiornaGriglia(calendar->GetDate());
+	aggiornaGriglia(calendar->GetDate());*/
 
-	sizer->Add(calendar, 0, 0, 5);
+	//sizer->Add(calendar, 0, 0, 5);
+	sizer->Add(datepicker, 0, 0, 5);
 	sizer->Add(grid, 0, wxEXPAND, 5);
 	SetSizer(sizer);
 }
@@ -102,11 +118,11 @@ void PanelTurni::aggiornaGriglia(const wxDateTime& dt)
 	{
 		grid->SetRowSize(r, 60);
 		grid->SetRowLabelValue(r, vdipendenti[r].get_nomecompleto());
+		grid->SetRowLabelSize(120);
 
 		// celle
 		for (size_t c = 0; c < vdate.size(); c++)
 		{	
-			
 			grid->SetReadOnly(r, c);
 		}
 	}

@@ -77,10 +77,17 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\mariadb-connector-c-2.2.2-src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
     </Link>
+    <Lib>
+      <AdditionalDependencies>mariadbclient.lib</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>C:\mariadb-connector-c-2.2.2-src\mybuild\libmariadb\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -132,6 +139,7 @@
   <ItemGroup>
     <ClInclude Include="datetime.h" />
     <ClInclude Include="dipendente.h" />
+    <ClInclude Include="my_conn.h" />
     <ClInclude Include="repositorydipendente.h" />
     <ClInclude Include="pianificazione.h" />
     <ClInclude Include="repository.h" />

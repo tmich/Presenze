@@ -6,8 +6,12 @@
 class RepositoryPresenze : public Repository<Presenza>
 {
 public:
-	RepositoryPresenze() {};
-	~RepositoryPresenze() {};
+	RepositoryPresenze();
+	~RepositoryPresenze();
+
+	RepositoryPresenze(const RepositoryPresenze&) = delete;
+	void operator=(RepositoryPresenze) = delete;
+
 	virtual Presenza get(int);
 	virtual Presenza add(DipendenteId, date::datetime, date::datetime, string);
 	virtual void remove(Presenza);
