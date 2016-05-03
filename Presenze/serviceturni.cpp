@@ -26,6 +26,21 @@ Presenza ServiceTurni::PianificaTurno(Dipendente dipendente, datetime data_inizi
 	}
 }
 
+Presenza ServiceTurni::PianificaTurno(Presenza& presenza)
+{
+	try
+	{
+		//presenza.pianifica(dipendente.get_id(), data_inizio, data_fine);
+		RepositoryPresenze repo;
+		repo.store(presenza);
+		return presenza;
+	}
+	catch (const std::exception&)
+	{
+		return nullptr;
+	}
+}
+
 Assenza ServiceTurni::PianificaAssenza(Dipendente dipendente, datetime data_inizio, datetime data_fine, string causale)
 {
 	Assenza assenza(causale);

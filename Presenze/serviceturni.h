@@ -11,6 +11,7 @@ public:
 	~ServiceTurni();
 
 	Presenza PianificaTurno(Dipendente, datetime, datetime, string);
+	Presenza PianificaTurno(Presenza& presenza);
 	Assenza PianificaAssenza(Dipendente, datetime, datetime, string);
 private:
 

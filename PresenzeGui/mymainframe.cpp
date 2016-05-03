@@ -35,7 +35,8 @@ MyMainFrame::MyMainFrame(const wxString & title, const wxPoint & pos)
 enum 
 {
 	ID_NUOVODIP,
-	ID_LSTTURNI
+	ID_LSTTURNI,
+	ID_PRNTURNI
 };
 
 MyMainFrame::~MyMainFrame()
@@ -72,6 +73,10 @@ wxMenu * MyMainFrame::creaMenuTurni()
 	wxMenuItem * mnuItTabTurniSett = new wxMenuItem{ nullptr, ID_LSTTURNI, _T("Tabella settimanale"), "Visualizza la tabella settimanale dei turni" };
 	mnuItTabTurniSett->SetBitmap(wxArtProvider::GetBitmap(wxART_LIST_VIEW, wxART_MENU, wxSize(16, 15)));
 	menu->Append(mnuItTabTurniSett);
+
+	wxMenuItem * mnuItTabTurniPrnt = new wxMenuItem{ nullptr, ID_PRNTURNI, _T("Stampa settimana"), "Stampa la tabella settimanale dei turni" };
+	mnuItTabTurniPrnt->SetBitmap(wxArtProvider::GetBitmap(wxART_PRINT, wxART_MENU, wxSize(16, 15)));
+	menu->Append(mnuItTabTurniPrnt);
 
 	return menu;
 }

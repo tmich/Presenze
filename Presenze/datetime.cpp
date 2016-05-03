@@ -106,6 +106,17 @@ date::datetime date::now()
 	return datetime();
 }
 
+date::datetime date::parse_iso8601(const std::string& isodate)
+{
+	int y = stoi(isodate.substr(0, 4));
+	int m = stoi(isodate.substr(4, 2));
+	int d = stoi(isodate.substr(6, 2));
+	int h = stoi(isodate.substr(9, 2));
+	int i = stoi(isodate.substr(11, 2));
+	int s = stoi(isodate.substr(13, 2));
+	return datetime(d, m, y, h, i, s);
+}
+
 bool operator<(const date::datetime& d1, const date::datetime& d2)
 {
 	if (d1.get_year() < d2.get_year()) { return true; }

@@ -1,5 +1,6 @@
 #include "panelTurni.h"
 #include "repositorydipendente.h"
+#include "repositorypresenze.h"
 #include "DialogTurno.h"
 
 PanelTurni::PanelTurni(wxWindow * parent, int id, wxSize size)
@@ -51,23 +52,53 @@ void PanelTurni::OnCellSelected(wxGridEvent & evt)
 	int col = evt.GetCol();
 	Dipendente d(vdipendenti[row]);
 	wxDateTime data(vdate[col]);
-	DialogTurno dlg(GetParent(), d, data);
-	
-	if (dlg.ShowModal() == wxID_OK)
+	date::datetime data1(data.GetDay(), data.GetMonth() + 1, data.GetYear());
+	date::datetime data2(data1);
+	bool found = false;
+	DialogTurno * dlg = new DialogTurno(GetParent(), d, data);
+	int idPianif = 0;
+
+	RepositoryPresenze repo;
+	auto presenze = repo.getByDate(data1, data2);
+	for each (auto& p in presenze)
 	{
-		tipoturno_t tipoTurno = dlg.getTipo();
-		wxDateTime dtIn = dlg.getDataInizio();
-		wxDateTime dtFn = dlg.getDataFine();
+		std::string inizio1 = p.get_inizio().to_date_string();
+		std::string inizio2 = vdate[col].Format("%d/%m/%Y");
+		if (p.get_id_dipendente() == d.get_id() && inizio1 == inizio2)
+		{
+			//VisualizzaPianificazione(row, col, p);
+			found = true;
+			dlg = new DialogTurno(GetParent(), p);
+			idPianif = p.get_id();
+			break;
+		}
+	}
+		
+	if (dlg->ShowModal() == wxID_OK)
+	{
+		tipoturno_t tipoTurno = dlg->getTipo();
+		wxDateTime dtIn = dlg->getDataInizio();
+		wxDateTime dtFn = dlg->getDataFine();
 		datetime dataInizio(dtIn.GetDay(), dtIn.GetMonth() + 1, dtIn.GetYear(), dtIn.GetHour(), dtIn.GetMinute(), 0);
 		datetime dataFine(dtFn.GetDay(), dtFn.GetMonth() + 1, dtFn.GetYear(), dtFn.GetHour(), dtFn.GetMinute(), 0);
-		string motivazione = dlg.getMotivazione().ToStdString();
+		string motivazione = dlg->getMotivazione().ToStdString();
 
 		ServiceTurni service;
 		if (tipoTurno == tipoturno_t::TURNO)
 		{
-			auto turno = service.PianificaTurno(d, dataInizio, dataFine, motivazione);
-			//wxMessageBox("Pianificato turno: " + turno.get_inizio().to_date_string(), "Turno", wxICON_INFORMATION);
-			VisualizzaPianificazione(row, col, turno);
+			if (idPianif == 0)
+			{
+				auto turno = service.PianificaTurno(d, dataInizio, dataFine, motivazione);
+				VisualizzaPianificazione(row, col, turno);
+			}
+			else
+			{
+				Presenza presenza = repo.get(idPianif);
+				presenza.pianifica(presenza.get_id_dipendente(), dataInizio, dataFine);
+				presenza.set_reparto(motivazione);
+				service.PianificaTurno(presenza);
+				VisualizzaPianificazione(row, col, presenza);
+			}
 		}
 		else
 		{
@@ -75,10 +106,6 @@ void PanelTurni::OnCellSelected(wxGridEvent & evt)
 			//wxMessageBox("Pianificata assenza: " + assenza.get_inizio().to_date_string(), "Assenza", wxICON_INFORMATION);
 			VisualizzaPianificazione(row, col, assenza);
 		}
-	}
-	else
-	{
-
 	}
 }
 
@@ -106,6 +133,12 @@ void PanelTurni::aggiornaGriglia(const wxDateTime& dt)
 		dt_ = dt_.Add(wxDateSpan{ 0,0,0,1 });	// aggiungo un giorno
 	}
 
+	RepositoryPresenze repo;
+	date::datetime data1(vdate[0].GetDay(), vdate[0].GetMonth() + 1, vdate[0].GetYear());
+	date::datetime data2(vdate[vdate.size() - 1].GetDay(), vdate[vdate.size() - 1].GetMonth() + 1, vdate[vdate.size() - 1].GetYear());
+	auto presenze = repo.getByDate(data1, data2);
+
+	grid->ClearGrid();
 	// colonne
 	for (size_t c = 0; c < vdate.size(); c++)
 	{
@@ -124,6 +157,16 @@ void PanelTurni::aggiornaGriglia(const wxDateTime& dt)
 		for (size_t c = 0; c < vdate.size(); c++)
 		{	
 			grid->SetReadOnly(r, c);
+			grid->SetCellBackgroundColour(r, c, wxColour(*wxWHITE));
+			for each (auto& p in presenze)
+			{
+				std::string inizio1 = p.get_inizio().to_date_string();
+				std::string inizio2 = vdate[c].Format("%d/%m/%Y");
+				if (p.get_id_dipendente() == vdipendenti[r].get_id() && inizio1 == inizio2)
+				{
+					VisualizzaPianificazione(r, c, p);
+				}
+			}
 		}
 	}
 }

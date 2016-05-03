@@ -34,6 +34,7 @@ namespace date
 
 	bool try_parse(const tm&, datetime&);
 	datetime now();
+	datetime parse_iso8601(const std::string&);
 }
 
 bool operator <(const date::datetime&, const date::datetime&);
